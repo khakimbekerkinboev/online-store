@@ -1,0 +1,42 @@
+.card {
+  width: 15rem;
+}
+
+.card-img {
+  height: 15rem;
+  object-fit: contain;
+}
+
+.card-img-top {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.card-body {
+  padding: 0.5rem;
+}
+
+.card-title {
+  font-size: 1.2rem;
+}
+
+.card-btns {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.input-group {
+  width: max-content;
+}
+
+.form-control {
+  width: 2.5rem;
+  text-align: center;
+}
+
+.form-control::-webkit-outer-spin-button,
+.form-control::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

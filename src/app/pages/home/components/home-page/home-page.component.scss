@@ -1,0 +1,15 @@
+.home-page-wrapper {
+  display: flex;
+}
+
+app-categories {
+  width: 15rem;
+  min-height: calc(100vh - 4.375rem);
+  padding-top: 3.5rem;
+}
+
+app-products {
+  width: calc(100% - 15rem);
+  min-height: calc(100vh - 4.375rem);
+  padding: 3.5rem 0 1rem 1rem;
+}
