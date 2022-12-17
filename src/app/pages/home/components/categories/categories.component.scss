@@ -1,5 +1,8 @@
 .categories-container {
   width: 100%;
+  position: sticky;
+  top: 5.5rem;
+  left: 0;
 }
 .list-group {
   overflow: hidden;

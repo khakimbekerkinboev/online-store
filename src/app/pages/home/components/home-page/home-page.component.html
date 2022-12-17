@@ -1,4 +1,4 @@
 <div class="home-page-wrapper">
-    <app-categories></app-categories>
-    <app-products></app-products>
+    <app-categories *ngIf="productsFullyLoaded" [products]="products"></app-categories>
+    <app-products *ngIf="productsFullyLoaded" [products]="products"></app-products>
 </div>

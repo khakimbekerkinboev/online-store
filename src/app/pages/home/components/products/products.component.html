@@ -1,6 +1,3 @@
 <div class="products-container">
-    <app-product-card></app-product-card><app-product-card></app-product-card>
-    <app-product-card></app-product-card><app-product-card></app-product-card>
-    <app-product-card></app-product-card><app-product-card></app-product-card>
-    <app-product-card></app-product-card><app-product-card></app-product-card>
+    <app-product-card *ngFor="let product of products" [currentProduct]="product"></app-product-card>
 </div>
