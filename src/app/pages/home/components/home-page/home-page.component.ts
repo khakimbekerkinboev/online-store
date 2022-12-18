@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductsService } from '../../services/products.service';
+import { GetProductsService } from '../../services/get-products.service';
+import { ShowProductsService } from '../../services/show-products.service';
 
 export interface Product {
   category: string;
@@ -19,12 +20,22 @@ export interface Product {
 export class HomePageComponent implements OnInit {
   products: Product[] = [];
   productsFullyLoaded: boolean = false;
-  constructor(private productsService: ProductsService) {}
+
+  constructor(
+    private getProductsService: GetProductsService,
+    private showProductsService: ShowProductsService
+  ) {}
 
   getAllProducts() {
-    this.productsService.getAllProducts().subscribe((res: any) => {
+    this.getProductsService.getAllProducts().subscribe((res: any) => {
       if (res) {
-        this.products = res;
+        this.showProductsService.allProducts = res;
+        this.showProductsService.updateShownProducts(res);
+
+        this.showProductsService.shownProducts.subscribe((newShownProducts) => {
+          this.products = newShownProducts;
+        });
+
         this.productsFullyLoaded = true;
       }
     });

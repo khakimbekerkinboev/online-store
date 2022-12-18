@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root',
 })
-export class ProductsService {
+export class GetProductsService {
   url = 'https://fakestoreapi.com/products';
   constructor(private http: HttpClient) {}
 
