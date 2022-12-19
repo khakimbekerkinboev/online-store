@@ -1,11 +1,27 @@
 <nav class="navbar navbar-expand-lg bg-light p-3">
-    <div class=" container-fluid p-0">
-        <a class="navbar-brand" href="#"><i class="fa-solid fa-store"></i> E-Store</a>
+    <div class="container-fluid p-0">
+        <a class="navbar-brand" routerLink="/"><i class="fa-solid fa-store"></i> E-Store</a>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search..." aria-label="Search">
-                <button class="btn btn-success" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <input class="form-control me-2" type="search" (input)="searchWhileTyping(searchInput.value)"
+                    (focus)="searchInputFocused = true" (blur)="searchInputFocused = false" placeholder="Search..."
+                    #searchInput>
+                <button class="btn btn-success" type="button"><i class="fa-solid fa-magnifying-glass"
+                        (click)="searchByButton(searchInput.value)"></i></button>
             </form>
+            <div class="found-items border" *ngIf="foundProducts.length > 0 && searchInputFocused">
+                <ul class="list-group list-group-flush">
+                    <a role="button" *ngFor="let product of foundProducts" class="list-group-item">
+                        <div>
+                            <img src={{product.image}} alt="">
+                            <h6>
+                                {{product.title | shortenProductName:20}}
+                            </h6>
+                        </div>
+                        <p>{{product.price | convertToUsd}}</p>
+                    </a>
+                </ul>
+            </div>
         </div>
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <button type="button" class="btn btn-secondary position-relative">

@@ -7,7 +7,7 @@
         <h5 class="card-title mb-1">{{currentProduct.title | shortenProductName:16}}</h5>
         <p class="card-subtitle text-muted mb-2">{{currentProduct.category | titlecase}}</p>
         <div class="card-price">
-            <h5 class="card-text">${{currentProduct.price}}</h5>
+            <h5 class="card-text">{{currentProduct.price | convertToUsd}}</h5>
             <p class="mb-0"><i class="fa-solid fa-star  text-warning"></i> {{currentProduct.rating.rate}}</p>
             <a href="" class="link-primary">Details</a>
         </div>

@@ -1,7 +1,44 @@
-.nav-item {
-  display: inline-block;
+.d-flex .form-control {
+  width: 25rem;
 }
 
-.d-flex .form-control {
-  width: 20rem;
+.navbar-collapse {
+  position: relative;
+}
+
+.found-items {
+  z-index: 25;
+  width: 25rem;
+  max-height: 50vh;
+  border-radius: 0.5rem;
+  overflow-y: auto;
+  position: absolute;
+  left: 0;
+  top: 115%;
+}
+
+.found-items::-webkit-scrollbar {
+  display: none;
+}
+
+.found-items .list-group-item {
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.found-items .list-group-item img {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+.found-items .list-group-item div {
+  display: flex;
+  align-items: center;
+  column-gap: 0.5rem;
+}
+
+.found-items .list-group-item h6,
+.found-items .list-group-item p {
+  margin-bottom: 0;
 }
