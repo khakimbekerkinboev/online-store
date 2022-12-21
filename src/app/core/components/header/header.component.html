@@ -11,7 +11,8 @@
             </form>
             <div class="found-items border" *ngIf="foundProducts.length > 0 && searchInputFocused">
                 <ul class="list-group list-group-flush">
-                    <a role="button" *ngFor="let product of foundProducts" class="list-group-item">
+                    <a role="button" (mousedown)="viewProduct(product)" *ngFor="let product of foundProducts"
+                        class="list-group-item">
                         <div>
                             <img src={{product.image}} alt="">
                             <h6>

@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Product } from './../../../pages/home/components/home-page/home-page.component';
 import { Component } from '@angular/core';
 import { ShowProductsService } from 'src/app/pages/home/services/show-products.service';
@@ -11,7 +12,10 @@ export class HeaderComponent {
   foundProducts: Product[] = [];
   searchInputFocused: boolean = false;
 
-  constructor(private showProductsService: ShowProductsService) {}
+  constructor(
+    private showProductsService: ShowProductsService,
+    private route: Router
+  ) {}
 
   searchWhileTyping(value: string) {
     if (value !== '') {
@@ -30,6 +34,12 @@ export class HeaderComponent {
   searchByButton(value: string) {
     if (value !== '') {
       this.showProductsService.updateShownProducts(this.foundProducts);
+    } else {
+      this.showProductsService.updateShownProducts([]);
     }
+  }
+
+  viewProduct(product: Product) {
+    this.route.navigate(['/products', product.id]);
   }
 }

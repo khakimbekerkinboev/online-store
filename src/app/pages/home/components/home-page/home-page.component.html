@@ -1,4 +1,10 @@
 <div class="home-page-wrapper">
+    <div class="lds-ring" *ngIf="!productsFullyLoaded">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
     <app-categories *ngIf="productsFullyLoaded" [products]="products"></app-categories>
     <app-products *ngIf="productsFullyLoaded" [products]="products"></app-products>
 </div>

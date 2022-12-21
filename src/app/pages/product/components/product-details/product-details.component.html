@@ -1,0 +1,63 @@
+<div class="lds-ring" *ngIf="!productFullyLoaded">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+</div>
+<div class="product-details-wrapper" *ngIf="productFullyLoaded">
+    <div class="product-details-image border">
+        <img src={{currentProduct.image}} alt="">
+    </div>
+    <div class="product-details-info">
+        <h3>{{currentProduct.title}}</h3>
+        <h2 class="text-danger">{{currentProduct.price | convertToUsd}}</h2>
+        <div class="product-details-rating">
+            <p class="fw-bold">
+                <i class="fa-solid fa-star text-warning"></i>
+                <i class="fa-solid fa-star text-warning"></i>
+                <i class="fa-solid fa-star text-warning"></i>
+                <i class="fa-solid fa-star text-warning"></i>
+                <i class="fa-solid fa-star text-warning"></i> {{currentProduct.rating.rate}}
+            </p>
+            <p><i class="fa-solid fa-cart-shopping text-secondary"></i>
+                <span class="fw-bold">
+                    {{currentProduct.rating.count}}</span> sold
+            </p>
+        </div>
+
+        <table class="table table-borderless">
+            <tr>
+                <td class="column-1 fw-bold">Category:</td>
+                <td>{{currentProduct.category | titlecase}}</td>
+            </tr>
+            <tr>
+                <td class="column-1 fw-bold">Status:</td>
+                <td class="fw-bold" style="color: #34D374;"><i class="fa-solid fa-circle"></i> Available</td>
+            </tr>
+            <tr>
+                <td class="column-1 fw-bold">Description:
+                </td>
+                <td>{{currentProduct.description}}</td>
+            </tr>
+            <tr>
+                <td class="column-1 fw-bold">Share:</td>
+                <td>
+                    <ul class="social-media-links">
+                        <li><a href="" style="color:  #3b5998"><i class="fa-brands fa-facebook"></i></a>
+                        </li>
+                        <li><a href="" style="color:  #0088cc"><i class="fa-brands fa-telegram"></i></a>
+                        </li>
+                        <li><a href="" style="color:  #00acee"><i class="fa-brands fa-twitter"></i></a>
+                        </li>
+                        <li><a href="" style="color:  #4FCE5D"><i class="fa-brands fa-square-whatsapp"></i></a></li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+
+        <div class="product-details-btns">
+            <button type="button" class="btn btn-success me-3">Add to cart</button>
+            <button type="button" class="btn btn-danger">Like</button>
+        </div>
+    </div>
+</div>
