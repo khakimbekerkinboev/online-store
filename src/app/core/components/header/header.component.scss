@@ -42,3 +42,22 @@
 .found-items .list-group-item p {
   margin-bottom: 0;
 }
+
+.d-grid.gap-2.d-md-flex.justify-content-md-end {
+  position: relative;
+}
+
+app-cart {
+  position: absolute;
+  top: 2.875rem;
+  left: -13.64375rem;
+  width: 25rem;
+  max-height: 50vh;
+  overflow-y: auto;
+  background-color: white;
+  border-radius: 0.5rem;
+}
+
+app-cart::-webkit-scrollbar {
+  display: none;
+}

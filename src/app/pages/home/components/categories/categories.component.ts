@@ -73,7 +73,7 @@ export class CategoriesComponent implements OnInit {
       }
     });
 
-    const link = event.target as HTMLElement;
+    const link = event.currentTarget as HTMLElement;
     link.classList?.add('active');
   }
 

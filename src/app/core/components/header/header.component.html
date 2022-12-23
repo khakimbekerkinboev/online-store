@@ -6,8 +6,8 @@
                 <input class="form-control me-2" type="search" (input)="searchWhileTyping(searchInput.value)"
                     (focus)="searchInputFocused = true" (blur)="searchInputFocused = false" placeholder="Search..."
                     #searchInput>
-                <button class="btn btn-success" type="button"><i class="fa-solid fa-magnifying-glass"
-                        (click)="searchByButton(searchInput.value)"></i></button>
+                <button class="btn btn-success" type="button" [disabled]="foundProducts.length == 0"
+                    (click)="searchByButton(searchInput.value)"><i class="fa-solid fa-magnifying-glass"></i></button>
             </form>
             <div class="found-items border" *ngIf="foundProducts.length > 0 && searchInputFocused">
                 <ul class="list-group list-group-flush">
@@ -25,11 +25,14 @@
             </div>
         </div>
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <button type="button" class="btn btn-secondary position-relative">
-                <i class="fa-solid fa-cart-shopping"></i>
-                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0
+            <button type="button" class="btn btn-secondary position-relative close-cart-btn"
+                (click)="showCartContainer = !showCartContainer">
+                <i class="fa-solid fa-cart-shopping close-cart-icon"></i>
+                <span
+                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{{numOfOrdersInCart}}
                 </span>
             </button>
+            <app-cart *ngIf="showCartContainer" class="border"></app-cart>
             <button type="button" class="btn btn-secondary position-relative">
                 <i class="fa-solid fa-heart"></i>
                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0

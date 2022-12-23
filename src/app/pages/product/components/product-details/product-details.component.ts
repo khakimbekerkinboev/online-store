@@ -1,3 +1,4 @@
+import { CartService } from './../../../cart/services/cart.service';
 import { Product } from './../../../home/components/home-page/home-page.component';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -14,8 +15,13 @@ export class ProductDetailsComponent implements OnInit {
   productFullyLoaded: boolean = false;
   constructor(
     private route: ActivatedRoute,
-    private getProductService: GetProductService
+    private getProductService: GetProductService,
+    private cartService: CartService
   ) {}
+
+  addToCart(product: Product) {
+    this.cartService.addProductToCart(product, 1);
+  }
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {

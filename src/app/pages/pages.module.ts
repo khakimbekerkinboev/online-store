@@ -8,6 +8,8 @@ import { ProductCardComponent } from './home/components/product-card/product-car
 import { ShortenProductNamePipe } from './home/pipes/shorten-product-name.pipe';
 import { ConvertToUsdPipe } from './home/pipes/convert-to-usd.pipe';
 import { ProductDetailsComponent } from './product/components/product-details/product-details.component';
+import { FormsModule } from '@angular/forms';
+import { CartComponent } from './cart/components/cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -18,8 +20,9 @@ import { ProductDetailsComponent } from './product/components/product-details/pr
     ShortenProductNamePipe,
     ConvertToUsdPipe,
     ProductDetailsComponent,
+    CartComponent,
   ],
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, FormsModule],
   exports: [
     CategoriesComponent,
     ProductsComponent,
@@ -27,6 +30,7 @@ import { ProductDetailsComponent } from './product/components/product-details/pr
     ShortenProductNamePipe,
     ConvertToUsdPipe,
     ProductDetailsComponent,
+    CartComponent,
   ],
 })
 export class PagesModule {}

@@ -1,0 +1,26 @@
+.cart-container {
+  border-radius: 0.5rem;
+  overflow-y: auto;
+}
+
+.cart-container::-webkit-scrollbar {
+  display: none;
+}
+
+.table {
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+}
+
+.cart-container table td {
+  vertical-align: middle;
+}
+
+.cart-img {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.cart-btns {
+  margin-bottom: 0.8rem;
+}
