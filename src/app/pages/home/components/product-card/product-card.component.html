@@ -12,7 +12,8 @@
             <a [routerLink]="['/products', currentProduct.id]" class="link-primary">Details</a>
         </div>
         <div class="card-btns">
-            <button type="button" class="btn btn-danger"><i class="fa-regular fa-heart"></i></button>
+            <button type="button" class="btn btn-danger" (click)="addProductToLikedProducts(currentProduct)"><i
+                    class="fa-regular fa-heart"></i></button>
             <div class="input-group input-group-sm">
                 <button class="btn btn-primary" type="button" (click)="decreaseAmount()"
                     [disabled]="currentQuantity == 1"><i class="fa-solid fa-minus"></i></button>

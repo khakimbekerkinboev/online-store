@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { CartProduct, CartService } from '../../services/cart.service';
 
 @Component({
@@ -9,6 +9,7 @@ import { CartProduct, CartService } from '../../services/cart.service';
 export class CartComponent implements OnInit {
   cartProducts: CartProduct[] = [];
   totalAmount: number = 0;
+  @Output() close = new EventEmitter<void>();
 
   constructor(private cartService: CartService) {}
 
@@ -18,6 +19,10 @@ export class CartComponent implements OnInit {
 
   emptyCart() {
     this.cartService.emptyCart();
+  }
+
+  closeCart() {
+    this.close.emit();
   }
 
   ngOnInit(): void {

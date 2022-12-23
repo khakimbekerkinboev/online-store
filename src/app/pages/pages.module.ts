@@ -10,6 +10,7 @@ import { ConvertToUsdPipe } from './home/pipes/convert-to-usd.pipe';
 import { ProductDetailsComponent } from './product/components/product-details/product-details.component';
 import { FormsModule } from '@angular/forms';
 import { CartComponent } from './cart/components/cart/cart.component';
+import { LikesComponent } from './likes/components/likes/likes.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { CartComponent } from './cart/components/cart/cart.component';
     ConvertToUsdPipe,
     ProductDetailsComponent,
     CartComponent,
+    LikesComponent,
   ],
   imports: [CommonModule, RouterModule, FormsModule],
   exports: [
@@ -31,6 +33,7 @@ import { CartComponent } from './cart/components/cart/cart.component';
     ConvertToUsdPipe,
     ProductDetailsComponent,
     CartComponent,
+    LikesComponent,
   ],
 })
 export class PagesModule {}

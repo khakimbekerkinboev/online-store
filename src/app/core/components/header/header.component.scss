@@ -47,17 +47,23 @@
   position: relative;
 }
 
-app-cart {
+.badge {
+  z-index: 2;
+}
+
+app-cart,
+app-likes {
   position: absolute;
   top: 2.875rem;
-  left: -13.64375rem;
-  width: 25rem;
+  right: 2rem;
+  width: 26rem;
   max-height: 50vh;
   overflow-y: auto;
   background-color: white;
   border-radius: 0.5rem;
 }
 
-app-cart::-webkit-scrollbar {
+app-cart::-webkit-scrollbar,
+app-likes::-webkit-scrollbar {
   display: none;
 }

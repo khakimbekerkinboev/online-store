@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-light p-3">
     <div class="container-fluid p-0">
-        <a class="navbar-brand" routerLink="/"><i class="fa-solid fa-store"></i> E-Store</a>
+        <a class="navbar-brand fw-semibold" routerLink="/">Online Store</a>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <form class="d-flex" role="search">
                 <input class="form-control me-2" type="search" (input)="searchWhileTyping(searchInput.value)"
@@ -26,18 +26,20 @@
         </div>
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <button type="button" class="btn btn-secondary position-relative close-cart-btn"
-                (click)="showCartContainer = !showCartContainer">
+                (click)="toggleCartContainer()">
                 <i class="fa-solid fa-cart-shopping close-cart-icon"></i>
                 <span
                     class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{{numOfOrdersInCart}}
                 </span>
             </button>
-            <app-cart *ngIf="showCartContainer" class="border"></app-cart>
-            <button type="button" class="btn btn-secondary position-relative">
+            <app-cart *ngIf="showCartContainer" (close)="showCartContainer = false" class="border"></app-cart>
+            <button type="button" class="btn btn-secondary position-relative" (click)="toggleLikesContainer()">
                 <i class="fa-solid fa-heart"></i>
-                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0
+                <span
+                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{{numOfLikedProducts}}
                 </span>
             </button>
+            <app-likes class="border" *ngIf="showLikesContainer" (close)="showLikesContainer = false"></app-likes>
             <button type="button" class="btn btn-outline-primary">Sign up</button>
             <button type="button" class="btn btn-primary">Log in</button>
         </div>
