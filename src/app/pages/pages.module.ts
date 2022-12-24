@@ -11,6 +11,7 @@ import { ProductDetailsComponent } from './product/components/product-details/pr
 import { FormsModule } from '@angular/forms';
 import { CartComponent } from './cart/components/cart/cart.component';
 import { LikesComponent } from './likes/components/likes/likes.component';
+import { ConfirmOrderComponent } from './cart/components/confirm-order/confirm-order.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { LikesComponent } from './likes/components/likes/likes.component';
     ProductDetailsComponent,
     CartComponent,
     LikesComponent,
+    ConfirmOrderComponent,
   ],
   imports: [CommonModule, RouterModule, FormsModule],
   exports: [

@@ -2,6 +2,7 @@ import { ProductDetailsComponent } from './pages/product/components/product-deta
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomePageComponent } from './pages/home/components/home-page/home-page.component';
+import { ConfirmOrderComponent } from './pages/cart/components/confirm-order/confirm-order.component';
 
 const routes: Routes = [
   {
@@ -11,6 +12,10 @@ const routes: Routes = [
   {
     path: 'products/:id',
     component: ProductDetailsComponent,
+  },
+  {
+    path: 'confirm-order',
+    component: ConfirmOrderComponent,
   },
 ];
 

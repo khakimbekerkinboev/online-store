@@ -3,7 +3,7 @@ import { Product } from './../../../home/components/home-page/home-page.componen
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GetProductService } from '../../services/get-product.service';
-import { Observable } from 'rxjs';
+import { LikesService } from 'src/app/pages/likes/services/likes.service';
 
 @Component({
   selector: 'app-product-details',
@@ -16,11 +16,16 @@ export class ProductDetailsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private getProductService: GetProductService,
-    private cartService: CartService
+    private cartService: CartService,
+    private likesService: LikesService
   ) {}
 
   addToCart(product: Product) {
     this.cartService.addProductToCart(product, 1);
+  }
+
+  likeTheProduct(product: Product) {
+    this.likesService.addProductToLikedProducts(product);
   }
 
   ngOnInit(): void {
