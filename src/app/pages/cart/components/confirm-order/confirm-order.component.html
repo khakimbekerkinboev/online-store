@@ -1,5 +1,5 @@
 <div class="order-container">
-    <form class="border p-4 rounded">
+    <form class="border p-4 rounded" (ngSubmit)="onSubmit()" [formGroup]="orderForm">
         <h2 class="text-center mt-3 mb-3 fw-normal">
             Order Form
         </h2>
@@ -7,23 +7,35 @@
             <label for="fullname" class="form-label">Full Name</label>
             <div class="d-flex gap-3">
                 <input type="text" class="form-control w-30" id="fullname" aria-describedby="emailHelp"
-                    placeholder="First Name" required>
+                    placeholder="First Name" formControlName="firstName">
                 <input type="text" class="form-control w-30" id="fullname" aria-describedby="emailHelp"
-                    placeholder="Last Name" required>
+                    placeholder="Last Name" formControlName="lastName">
+            </div>
+            <div class="alert alert-danger mt-2 " role="alert"
+                *ngIf="!orderForm.get('firstName').valid && orderForm.get('firstName').touched || !orderForm.get('lastName').valid && orderForm.get('lastName').touched">
+                Each Name must contain at least 3 characters.
             </div>
         </div>
         <div class="mb-3">
             <label for="contact-info" class="form-label">Contact Info</label>
             <div class="d-flex gap-3">
                 <input type="tel" class="form-control" style="width: 50%;" id="contact-info" placeholder="Phone Number"
-                    required>
-                <input type="email" class="form-control" id="contact-info" placeholder="Email" required>
+                    formControlName="phoneNumber">
+                <input type="email" class="form-control" id="contact-info" placeholder="Email" formControlName="email">
+            </div>
+            <div class="alert alert-danger mt-2 " role="alert"
+                *ngIf="!orderForm.get('phoneNumber').valid && orderForm.get('phoneNumber').touched || !orderForm.get('email').valid && orderForm.get('email').touched">
+                Phone Number & Email are required!
             </div>
         </div>
         <div class="mb-3">
             <label for="address" class="form-label">Shipping Address</label>
             <input type="text" class="form-control" id="address"
-                placeholder="Country, State, City, Street Address, Zip code" required>
+                placeholder="Country, State, City, Street Address, Zip Code" formControlName="shippingAddress">
+            <div class="alert alert-danger mt-2 " role="alert"
+                *ngIf="!orderForm.get('shippingAddress').valid && orderForm.get('shippingAddress').touched">
+                Shipping Address is required!
+            </div>
         </div>
         <div>
             <label for="products" class="form-label">Product List</label>
@@ -54,25 +66,39 @@
                 </tbody>
             </table>
         </div>
+        <div class="alert alert-danger mt-2 " role="alert" *ngIf="cartProducts.length === 0">
+            Product List cannot be empty!
+        </div>
         <div class="mb-3">
             <label for="payment" class="form-label">Payment Method</label>
-            <select class="form-select" aria-label="Default select example" id="payment" required>
-                <option selected>Choose...</option>
+            <select class="form-select" aria-label="Default select example" id="payment"
+                formControlName="paymentMethod">
+                <option selected value="0">Choose...</option>
                 <option value="1">Credit Card</option>
                 <option value="2">PayPal</option>
                 <option value="3">Apple Pay</option>
                 <option value="4">Google Pay</option>
             </select>
+            <div class="alert alert-danger mt-2 " role="alert"
+                *ngIf="!orderForm.get('paymentMethod').valid && orderForm.get('paymentMethod').touched">
+                Please choose a payment method!
+            </div>
         </div>
-        <div class="mb-3">
+        <div class=" mb-3">
             <label for="comments" class="form-label">Comments</label>
-            <textarea class="form-control" id="comments" rows="3" placeholder="Order Notes..."></textarea>
+            <textarea class="form-control" id="comments" rows="3" placeholder="Order Notes..."
+                formControlName="comments"></textarea>
         </div>
         <div class="mb-3 form-check">
-            <input type="checkbox" class="form-check-input" id="terms" required>
+            <input type="checkbox" class="form-check-input" id="terms" formControlName="agreeToTerms">
             <label class="form-check-label" for="terms">I agree to the <a href="">terms and
                     conditions</a></label>
         </div>
-        <button type="submit" class="btn btn-primary" [disabled]="cartProducts.length === 0">Submit</button>
+        <div class="alert alert-danger mt-2 " role="alert"
+            *ngIf="!orderForm.get('agreeToTerms').valid && orderForm.get('agreeToTerms').touched">
+            Please agree to the terms and conditions!
+        </div>
+        <button type="submit" class="btn btn-primary"
+            [disabled]="cartProducts.length === 0 || !orderForm.valid">Submit</button>
     </form>
 </div>

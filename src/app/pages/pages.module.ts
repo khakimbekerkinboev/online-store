@@ -8,7 +8,7 @@ import { ProductCardComponent } from './home/components/product-card/product-car
 import { ShortenProductNamePipe } from './home/pipes/shorten-product-name.pipe';
 import { ConvertToUsdPipe } from './home/pipes/convert-to-usd.pipe';
 import { ProductDetailsComponent } from './product/components/product-details/product-details.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CartComponent } from './cart/components/cart/cart.component';
 import { LikesComponent } from './likes/components/likes/likes.component';
 import { ConfirmOrderComponent } from './cart/components/confirm-order/confirm-order.component';
@@ -26,7 +26,7 @@ import { ConfirmOrderComponent } from './cart/components/confirm-order/confirm-o
     LikesComponent,
     ConfirmOrderComponent,
   ],
-  imports: [CommonModule, RouterModule, FormsModule],
+  imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule],
   exports: [
     CategoriesComponent,
     ProductsComponent,
