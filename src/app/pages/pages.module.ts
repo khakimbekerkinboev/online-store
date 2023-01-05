@@ -12,6 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CartComponent } from './cart/components/cart/cart.component';
 import { LikesComponent } from './likes/components/likes/likes.component';
 import { ConfirmOrderComponent } from './cart/components/confirm-order/confirm-order.component';
+import { FinishOrderComponent } from './cart/components/finish-order/finish-order/finish-order.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { ConfirmOrderComponent } from './cart/components/confirm-order/confirm-o
     CartComponent,
     LikesComponent,
     ConfirmOrderComponent,
+    FinishOrderComponent,
   ],
   imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule],
   exports: [

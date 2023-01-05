@@ -1,6 +1,8 @@
+import { OrderService } from './../../services/order.service';
 import { CartProduct, CartService } from './../../services/cart.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-confirm-order',
@@ -12,14 +14,36 @@ export class ConfirmOrderComponent implements OnInit {
   totalAmount: number = 0;
   orderForm: FormGroup | any;
 
-  constructor(private cartService: CartService) {}
+  constructor(
+    private cartService: CartService,
+    private orderService: OrderService,
+    private router: Router
+  ) {}
 
   removeCartProduct(cartProduct: CartProduct) {
     this.cartService.removeProductFromCart(cartProduct);
   }
 
   onSubmit() {
-    console.log(this.orderForm.value);
+    const uniqueId = this.generateId();
+    const orderDetails = {
+      ...this.orderForm.value,
+      orderId: uniqueId,
+    };
+
+    //send the orderDetails to the server
+
+    this.orderService.orderDetails = orderDetails;
+    this.cartService.emptyCart();
+    this.router.navigate(['/finish-order']);
+  }
+
+  totalAmountValidator(control: FormControl) {
+    if (control.value === 0) {
+      return { empty: true };
+    }
+
+    return null;
   }
 
   paymentMethodValidator(control: FormControl) {
@@ -36,6 +60,11 @@ export class ConfirmOrderComponent implements OnInit {
     }
 
     return null;
+  }
+
+  generateId(): string {
+    const random = Math.floor(Math.random() * 9999999999) + 1;
+    return random.toString();
   }
 
   ngOnInit() {

@@ -4,7 +4,7 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'convertToUsd',
 })
 export class ConvertToUsdPipe implements PipeTransform {
-  transform(value: number): string {
-    return '$' + value.toFixed(2).toLocaleString();
+  transform(value: number | undefined): string {
+    return '$' + value?.toFixed(2).toLocaleString();
   }
 }

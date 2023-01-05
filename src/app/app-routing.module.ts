@@ -1,3 +1,4 @@
+import { FinishOrderComponent } from './pages/cart/components/finish-order/finish-order/finish-order.component';
 import { ProductDetailsComponent } from './pages/product/components/product-details/product-details.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -16,6 +17,10 @@ const routes: Routes = [
   {
     path: 'confirm-order',
     component: ConfirmOrderComponent,
+  },
+  {
+    path: 'finish-order',
+    component: FinishOrderComponent,
   },
 ];
 

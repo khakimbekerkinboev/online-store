@@ -1,0 +1,48 @@
+<div *ngIf="!orderConfirmed">
+    <h1 class="text-center mt-5">No orders placed</h1>
+    <p class="text-center">Thank you for visiting our store! It looks like you have not placed any orders yet.</p>
+</div>
+
+<div class="finish-container" *ngIf="orderConfirmed">
+    <h1 class="text-center mt-5">Order received</h1>
+    <p class="text-center">Thank you! Your order has been received.</p>
+    <h3>More details:</h3>
+    <table class="table table-borderless">
+        <tbody>
+            <tr>
+                <td class="fw-semibold col-3">Order ID:</td>
+                <td>{{details?.orderId}}</td>
+            </tr>
+            <tr>
+                <td class="fw-semibold col-3">Full Name:</td>
+                <td>
+                    {{details?.firstName}} {{details?.lastName}}
+                </td>
+            </tr>
+            <tr>
+                <td class="fw-semibold col-3">Phone Number:</td>
+                <td>{{details?.phoneNumber}}</td>
+            </tr>
+            <tr>
+                <td class="fw-semibold col-3">Email:</td>
+                <td>{{details?.email}}</td>
+            </tr>
+            <tr>
+                <td class="fw-semibold col-3">Shipping Address:</td>
+                <td>{{details?.shippingAddress}}</td>
+            </tr>
+            <tr>
+                <td class="fw-semibold col-3">Total Amount:</td>
+                <td>{{details?.totalAmount | convertToUsd}}</td>
+            </tr>
+            <tr>
+                <td class="fw-semibold col-3">Payment Method:</td>
+                <td>{{details?.paymentMethod}}</td>
+            </tr>
+            <tr>
+                <td class="fw-semibold col-3">Comments:</td>
+                <td>{{details?.comments}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
