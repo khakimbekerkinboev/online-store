@@ -24,12 +24,12 @@ const routes: Routes = [
     component: FinishOrderComponent,
   },
   {
-    path: 'not-found',
-    component: NotFoundComponent,
-  },
-  {
     path: '**',
     redirectTo: 'not-found',
+  },
+  {
+    path: 'not-found',
+    component: NotFoundComponent,
   },
 ];
 
