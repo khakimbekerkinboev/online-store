@@ -1,3 +1,4 @@
+import { CartProduct } from './cart.service';
 import { Injectable } from '@angular/core';
 
 export interface OrderDetails {
@@ -7,6 +8,7 @@ export interface OrderDetails {
   phoneNumber: string;
   email: string;
   shippingAddress: string;
+  orderedProducts: CartProduct[];
   totalAmount: number;
   paymentMethod: string;
   comments: string;

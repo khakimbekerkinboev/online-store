@@ -25,17 +25,18 @@ export class ConfirmOrderComponent implements OnInit {
   }
 
   onSubmit() {
-    const uniqueId = this.generateId();
     const orderDetails = {
       ...this.orderForm.value,
-      orderId: uniqueId,
+      orderedProducts: this.cartProducts,
+      totalAmount: this.totalAmount,
+      orderId: this.generateId(),
     };
 
     //send the orderDetails to the server
 
     this.orderService.orderDetails = orderDetails;
-    this.cartService.emptyCart();
     this.router.navigate(['/finish-order']);
+    this.cartService.emptyCart();
   }
 
   totalAmountValidator(control: FormControl) {
@@ -88,7 +89,6 @@ export class ConfirmOrderComponent implements OnInit {
       phoneNumber: new FormControl('', Validators.required),
       email: new FormControl('', Validators.required),
       shippingAddress: new FormControl('', Validators.required),
-      totalAmount: new FormControl(this.totalAmount),
       paymentMethod: new FormControl(
         '0',
         Validators.compose([Validators.required, this.paymentMethodValidator])

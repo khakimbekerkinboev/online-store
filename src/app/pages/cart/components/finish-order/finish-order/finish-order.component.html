@@ -32,8 +32,25 @@
                 <td>{{details?.shippingAddress}}</td>
             </tr>
             <tr>
-                <td class="fw-semibold col-3">Total Amount:</td>
-                <td>{{details?.totalAmount | convertToUsd}}</td>
+                <td class="fw-semibold col-3">Products:</td>
+                <td>
+                    <table class="table">
+                        <tbody>
+                            <tr *ngFor="let product of details?.orderedProducts">
+                                <td class="ps-0">{{product.title | shortenProductName:35}}</td>
+                                <td>{{product.price | convertToUsd}}</td>
+                                <td>{{product.quantity}} pcs</td>
+                                <td>{{(product.price * product.quantity) | convertToUsd}}</td>
+                            </tr>
+                            <tr>
+                                <td class="border-0"></td>
+                                <td class="border-0"></td>
+                                <td class="border-0 fw-bold">Total:</td>
+                                <td class="border-0 fw-bold">{{details?.totalAmount | convertToUsd}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
             </tr>
             <tr>
                 <td class="fw-semibold col-3">Payment Method:</td>
