@@ -77,6 +77,13 @@ export class CategoriesComponent implements OnInit {
     link.classList?.add('active');
   }
 
+  moveToTop() {
+    window.scroll({
+      top: 0,
+      left: 0,
+    });
+  }
+
   ngOnInit(): void {
     this.setCategoryNumberPairs();
   }
