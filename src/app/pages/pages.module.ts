@@ -13,6 +13,7 @@ import { CartComponent } from './cart/components/cart/cart.component';
 import { LikesComponent } from './likes/components/likes/likes.component';
 import { ConfirmOrderComponent } from './cart/components/confirm-order/confirm-order.component';
 import { FinishOrderComponent } from './cart/components/finish-order/finish-order/finish-order.component';
+import { NotFoundComponent } from './not-found/components/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { FinishOrderComponent } from './cart/components/finish-order/finish-orde
     LikesComponent,
     ConfirmOrderComponent,
     FinishOrderComponent,
+    NotFoundComponent,
   ],
   imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule],
   exports: [

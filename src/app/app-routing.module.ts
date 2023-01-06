@@ -1,3 +1,4 @@
+import { NotFoundComponent } from './pages/not-found/components/not-found/not-found.component';
 import { FinishOrderComponent } from './pages/cart/components/finish-order/finish-order/finish-order.component';
 import { ProductDetailsComponent } from './pages/product/components/product-details/product-details.component';
 import { NgModule } from '@angular/core';
@@ -21,6 +22,10 @@ const routes: Routes = [
   {
     path: 'finish-order',
     component: FinishOrderComponent,
+  },
+  {
+    path: '**',
+    component: NotFoundComponent,
   },
 ];
 
