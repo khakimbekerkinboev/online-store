@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { ShowProductsService } from 'src/app/pages/home/services/show-products.service';
 import { CartService } from 'src/app/pages/cart/services/cart.service';
 import { LikesService } from 'src/app/pages/likes/services/likes.service';
+import { AuthService } from 'src/app/auth/services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -17,10 +18,13 @@ export class HeaderComponent implements OnInit {
   numOfLikedProducts: number = 0;
   showCartContainer: boolean = false;
   showLikesContainer: boolean = false;
+  loggedIn = false;
+  currentUser = '';
 
   constructor(
     private showProductsService: ShowProductsService,
     private cartService: CartService,
+    public authService: AuthService,
     private likesService: LikesService,
     private route: Router
   ) {}
@@ -67,6 +71,10 @@ export class HeaderComponent implements OnInit {
     }
   }
 
+  logOut() {
+    this.authService.logUserOut();
+  }
+
   ngOnInit() {
     this.cartService.numOfOrdersInCart.subscribe((num) => {
       this.numOfOrdersInCart = num;
@@ -74,6 +82,14 @@ export class HeaderComponent implements OnInit {
 
     this.likesService.numOflikedProducts.subscribe((num) => {
       this.numOfLikedProducts = num;
+    });
+
+    this.authService.loggedIn.subscribe((status) => {
+      this.loggedIn = status;
+    });
+
+    this.authService.currentUserData.subscribe((res: any) => {
+      this.currentUser = `${res.firstName} ${res.lastName[0]}...`;
     });
   }
 }

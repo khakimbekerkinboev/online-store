@@ -5,6 +5,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomePageComponent } from './pages/home/components/home-page/home-page.component';
 import { ConfirmOrderComponent } from './pages/cart/components/confirm-order/confirm-order.component';
+import { SignUpComponent } from './auth/components/sign-up/sign-up.component';
+import { LogInComponent } from './auth/components/log-in/log-in/log-in.component';
 
 const routes: Routes = [
   {
@@ -22,6 +24,14 @@ const routes: Routes = [
   {
     path: 'finish-order',
     component: FinishOrderComponent,
+  },
+  {
+    path: 'sign-up',
+    component: SignUpComponent,
+  },
+  {
+    path: 'log-in',
+    component: LogInComponent,
   },
   {
     path: '**',

@@ -1,0 +1,68 @@
+<form class="mx-auto my-5 p-4 border rounded" (ngSubmit)="onSubmit(form.value)" #form="ngForm">
+  <h2 class="text-center fw-normal mb-4">Sign up</h2>
+  <div class="alert alert-danger" role="alert" *ngIf="userAlreadyRegistered">
+    This email & password combination is already registered!
+  </div>
+  <div class="alert alert-success" role="alert" *ngIf="accountCreated">
+    The account has been successfully created!
+  </div>
+  <div class="mb-3">
+    <div class="d-flex justify-content-between">
+      <div style="width: 48%;">
+        <label for="firstName" class="form-label">First Name</label>
+        <input type="text" class="form-control" id="firstName" name="firstName" required minlength="3" ngModel
+          #firstName="ngModel">
+      </div>
+      <div style="width: 48%;">
+        <label for="lastName" class="form-label">Last Name</label>
+        <input type="text" class="form-control" id="lastName" name="lastName" required minlength="3" ngModel
+          #lastName="ngModel">
+      </div>
+    </div>
+    <div class="alert alert-danger mt-2 mb-2" role="alert" *ngIf="(!firstName.valid && firstName.touched)">
+      <div *ngIf="firstName.errors?.['required']">First Name is required.</div>
+      <div *ngIf="firstName.errors?.['minlength']">First Name must contain at least 3 characters.</div>
+    </div>
+    <div class="alert alert-danger mt-2" role="alert" *ngIf="(!lastName.valid && lastName.touched)">
+      <div *ngIf="lastName.errors?.['required']">Last Name is required.</div>
+      <div *ngIf="lastName.errors?.['minlength']">Last Name must contain at least 3 characters.</div>
+    </div>
+  </div>
+
+  <div class=" mb-3">
+    <label for="email" class="form-label">Email</label>
+    <input type="email" class="form-control" id="email" name="email" ngModel #email="ngModel" required>
+    <div class="alert alert-danger mt-2" role="alert" *ngIf="!email.valid && email.touched">Email is required.</div>
+  </div>
+
+  <div class="mb-3">
+    <label for="password" class="form-label">Password</label>
+    <input type="password" class="form-control" id="password" name="password" ngModel #password="ngModel" required
+      minlength="4">
+    <div class="alert alert-danger mt-2" role="alert" *ngIf="(!password.valid && password.touched)">
+      <div *ngIf="password.errors?.['required']">Password is required.</div>
+      <div *ngIf="password.errors?.['minlength']">Password must contain at least 4 characters.</div>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="repeatPassword" class="form-label">Repeat Password</label>
+    <input type="password" class="form-control" id="repeatPassword" name="repeatPassword" ngModel
+      #repeatPassword="ngModel" required>
+
+    <div class="alert alert-danger mt-2 mb-2" role="alert"
+      *ngIf="repeatPassword.errors?.['required'] && repeatPassword.touched">Repeat Password is
+      required.</div>
+    <div class="alert alert-danger mt-2" role="alert"
+      *ngIf="repeatPassword.value !== password.value && repeatPassword.touched && password.value !== '' && repeatPassword.value !== ''">
+      The passwords
+      do
+      not match.</div>
+  </div>
+  <div class="text-center mb-3">
+    <button type="submit" class="btn btn-primary"
+      [disabled]="!form.valid || (password.value !== repeatPassword.value)">Sign
+      up</button>
+  </div>
+  <p class="text-center">Already have an account? <a routerLink="/log-in">Log in</a></p>
+</form>

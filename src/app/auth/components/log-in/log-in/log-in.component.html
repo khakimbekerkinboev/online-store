@@ -1,0 +1,24 @@
+<form class="mx-auto my-5 p-4 border rounded" #form="ngForm" (ngSubmit)="onSubmit(form.value)">
+  <h2 class="text-center fw-normal mb-3">Log in</h2>
+  <div class="alert alert-danger" role="alert" *ngIf="userNotRegistered">
+    Please enter a valid email & password combination!
+  </div>
+  <div class="mb-3">
+    <label for="email" class="form-label">Email</label>
+    <input type="email" class="form-control" id="email" name="email" ngModel #email="ngModel" required>
+    <div class="alert alert-danger mt-2" role="alert" *ngIf="!email.valid && email.touched">Email is required.</div>
+  </div>
+  <div class="mb-3">
+    <label for="password" class="form-label">Password</label>
+    <input type="password" class="form-control" id="password" name="password" ngModel #password="ngModel" required
+      minlength="4">
+    <div class="alert alert-danger mt-2" role="alert" *ngIf="(!password.valid && password.touched)">
+      <div *ngIf="password.errors?.['required']">Password is required.</div>
+      <div *ngIf="password.errors?.['minlength']">Password must contain at least 4 characters.</div>
+    </div>
+  </div>
+  <div class="text-center mb-3">
+    <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Log in</button>
+  </div>
+  <p class="text-center">Don't have an account? <a routerLink="/sign-up">Sign up</a></p>
+</form>

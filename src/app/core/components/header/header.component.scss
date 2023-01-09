@@ -67,3 +67,9 @@ app-cart::-webkit-scrollbar,
 app-likes::-webkit-scrollbar {
   display: none;
 }
+
+.dropdown-menu {
+  position: absolute;
+  top: 2.5rem;
+  right: 0;
+}

@@ -1,47 +1,60 @@
 <nav class="navbar navbar-expand-lg bg-light p-3">
-    <div class="container-fluid p-0">
-        <a class="navbar-brand fw-semibold" routerLink="/">Online Store</a>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" (input)="searchWhileTyping(searchInput.value)"
-                    (focus)="searchInputFocused = true" (blur)="searchInputFocused = false" placeholder="Search..."
-                    #searchInput>
-                <button class="btn btn-success" type="button" [disabled]="foundProducts.length == 0"
-                    (click)="searchByButton(searchInput.value)"><i class="fa-solid fa-magnifying-glass"></i></button>
-            </form>
-            <div class="found-items border" *ngIf="foundProducts.length > 0 && searchInputFocused">
-                <ul class="list-group list-group-flush">
-                    <a role="button" (mousedown)="viewProduct(product)" *ngFor="let product of foundProducts"
-                        class="list-group-item">
-                        <div>
-                            <img src={{product.image}} alt="">
-                            <h6>
-                                {{product.title | shortenProductName:20}}
-                            </h6>
-                        </div>
-                        <p>{{product.price | convertToUsd}}</p>
-                    </a>
-                </ul>
+  <div class="container-fluid p-0 gap-2">
+    <a class="navbar-brand fw-semibold" routerLink="/">Online Store</a>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" (input)="searchWhileTyping(searchInput.value)"
+          (focus)="searchInputFocused = true" (blur)="searchInputFocused = false" placeholder="Search..." #searchInput>
+        <button class="btn btn-success" type="button" [disabled]="foundProducts.length == 0"
+          (click)="searchByButton(searchInput.value)"><i class="fa-solid fa-magnifying-glass"></i></button>
+      </form>
+      <div class="found-items border" *ngIf="foundProducts.length > 0 && searchInputFocused">
+        <ul class="list-group list-group-flush">
+          <a role="button" (mousedown)="viewProduct(product)" *ngFor="let product of foundProducts"
+            class="list-group-item">
+            <div>
+              <img src={{product.image}} alt="">
+              <h6>
+                {{product.title | shortenProductName:20}}
+              </h6>
             </div>
-        </div>
-        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <button type="button" class="btn btn-secondary position-relative close-cart-btn"
-                (click)="toggleCartContainer()">
-                <i class="fa-solid fa-cart-shopping close-cart-icon"></i>
-                <span
-                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{{numOfOrdersInCart}}
-                </span>
-            </button>
-            <app-cart *ngIf="showCartContainer" (close)="showCartContainer = false" class="border"></app-cart>
-            <button type="button" class="btn btn-secondary position-relative" (click)="toggleLikesContainer()">
-                <i class="fa-solid fa-heart"></i>
-                <span
-                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{{numOfLikedProducts}}
-                </span>
-            </button>
-            <app-likes class="border" *ngIf="showLikesContainer" (close)="showLikesContainer = false"></app-likes>
-            <button type="button" class="btn btn-outline-primary">Log in</button>
-            <button type="button" class="btn btn-primary">Sign up</button>
-        </div>
+            <p>{{product.price | convertToUsd}}</p>
+          </a>
+        </ul>
+      </div>
     </div>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+      <button type="button" class="btn btn-secondary position-relative close-cart-btn" (click)="toggleCartContainer()">
+        <i class="fa-solid fa-cart-shopping close-cart-icon"></i>
+        <span
+          class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{{numOfOrdersInCart}}
+        </span>
+      </button>
+      <app-cart *ngIf="showCartContainer" (close)="showCartContainer = false" class="border"></app-cart>
+      <button type="button" class="btn btn-secondary position-relative" (click)="toggleLikesContainer()">
+        <i class="fa-solid fa-heart"></i>
+        <span
+          class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{{numOfLikedProducts}}
+        </span>
+      </button>
+      <app-likes class="border" *ngIf="showLikesContainer" (close)="showLikesContainer = false"></app-likes>
+      <button type="button" class="btn btn-outline-primary" routerLink="/log-in" *ngIf="!loggedIn">Log
+        in</button>
+      <button type="button" class="btn btn-primary" routerLink="/sign-up" *ngIf="!loggedIn">Sign
+        up</button>
+    </div>
+    <div class="navbar-nav" *ngIf="loggedIn">
+      <div class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false"
+          (click)="accountItems.classList.toggle('show')">
+          {{currentUser}}
+        </a>
+        <ul class="dropdown-menu" #accountItems>
+          <li><a class="dropdown-item" role="button">Edit profile</a></li>
+          <li><a class="dropdown-item" role="button">Settings</a></li>
+          <li><a class="dropdown-item" role="button" (click)="logOut()">Log out</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </nav>
