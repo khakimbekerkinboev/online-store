@@ -7,6 +7,7 @@ import { HomePageComponent } from './pages/home/components/home-page/home-page.c
 import { ConfirmOrderComponent } from './pages/cart/components/confirm-order/confirm-order.component';
 import { SignUpComponent } from './auth/components/sign-up/sign-up.component';
 import { LogInComponent } from './auth/components/log-in/log-in/log-in.component';
+import { NotLoggedIn } from './auth/services/not-logged-in';
 
 const routes: Routes = [
   {
@@ -28,10 +29,12 @@ const routes: Routes = [
   {
     path: 'sign-up',
     component: SignUpComponent,
+    canActivate: [NotLoggedIn],
   },
   {
     path: 'log-in',
     component: LogInComponent,
+    canActivate: [NotLoggedIn],
   },
   {
     path: '**',
