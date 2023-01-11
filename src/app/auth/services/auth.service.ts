@@ -106,12 +106,40 @@ export class AuthService {
   editProfile(data: SignUpFormValues) {
     return new Observable((observer) => {
       setTimeout(() => {
-        if (localStorage.getItem('users') !== null) {
-          const users: SignUpFormValues[] = JSON.parse(
-            localStorage.getItem('users') as string
-          );
+        const isLoggedIn = JSON.parse(
+          localStorage.getItem('loggedIn') as string
+        );
 
-          observer.next(users.indexOf(data));
+        const currentUserData: CurrentUserData = JSON.parse(
+          localStorage.getItem('currentUserData') as string
+        );
+
+        const users: CurrentUserData[] = JSON.parse(
+          localStorage.getItem('users') as string
+        );
+
+        if (isLoggedIn && currentUserData !== null) {
+          const newUserData: CurrentUserData = {
+            ...data,
+            cartProducts: currentUserData.cartProducts,
+            likedProducts: currentUserData.likedProducts,
+          };
+
+          users.forEach((user, index) => {
+            if (
+              user.email === currentUserData.email &&
+              user.password === currentUserData.password
+            ) {
+              users[index] = JSON.parse(JSON.stringify(newUserData));
+              return;
+            }
+          });
+
+          localStorage.setItem('users', JSON.stringify(users));
+          this.userInfoService.updateCurrentUserData(newUserData);
+          observer.next({ changesSaved: true });
+        } else {
+          observer.next({ changesSaved: false });
         }
       }, 2000);
     });

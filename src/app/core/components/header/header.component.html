@@ -50,9 +50,11 @@
           {{currentUser}}
         </a>
         <ul class="dropdown-menu" #accountItems>
-          <li><a class="dropdown-item" role="button" routerLink="/edit-profile">Edit profile</a></li>
-          <li><a class="dropdown-item" role="button">Settings</a></li>
-          <li><a class="dropdown-item" role="button" (click)="logOut()">Log out</a></li>
+          <li><a class="dropdown-item" role="button" routerLink="/edit-profile"
+              (click)="accountItems.classList.remove('show')">Edit profile</a></li>
+          <li><a class="dropdown-item" role="button" (click)="accountItems.classList.remove('show')">Settings</a></li>
+          <li><a class="dropdown-item" role="button" (click)="logOut()"
+              (click)="accountItems.classList.remove('show')">Log out</a></li>
         </ul>
       </div>
     </div>

@@ -1,7 +1,7 @@
 <form class="mx-auto my-5 p-4 border rounded" (ngSubmit)="onSubmit(form.value)" #form="ngForm">
   <h2 class="text-center fw-normal mb-4">Edit profile</h2>
-  <div class="alert alert-danger" role="alert" *ngIf="userAlreadyRegistered">
-    This email & password combination is already registered!
+  <div class="alert alert-danger" role="alert" *ngIf="userNotLoggedIn">
+    The user is not logged in!
   </div>
   <div class="alert alert-success" role="alert" *ngIf="changesSaved">
     The changes have been saved!
@@ -10,13 +10,13 @@
     <div class="d-flex justify-content-between">
       <div style="width: 48%;">
         <label for="firstName" class="form-label">First Name</label>
-        <input type="text" class="form-control" id="firstName" name="firstName" required minlength="3" ngModel
-          #firstName="ngModel">
+        <input type="text" class="form-control" id="firstName" name="firstName" required minlength="3"
+          [ngModel]="currentUserData?.firstName" #firstName="ngModel">
       </div>
       <div style="width: 48%;">
         <label for="lastName" class="form-label">Last Name</label>
-        <input type="text" class="form-control" id="lastName" name="lastName" required minlength="3" ngModel
-          #lastName="ngModel">
+        <input type="text" class="form-control" id="lastName" name="lastName" required minlength="3"
+          [ngModel]="currentUserData?.lastName" #lastName="ngModel">
       </div>
     </div>
     <div class="alert alert-danger mt-2 mb-2" role="alert" *ngIf="(!firstName.valid && firstName.touched)">
@@ -31,14 +31,15 @@
 
   <div class=" mb-3">
     <label for="email" class="form-label">Email</label>
-    <input type="email" class="form-control" id="email" name="email" ngModel #email="ngModel" required>
+    <input type="email" class="form-control" id="email" name="email" [ngModel]="currentUserData?.email" #email="ngModel"
+      required>
     <div class="alert alert-danger mt-2" role="alert" *ngIf="!email.valid && email.touched">Email is required.</div>
   </div>
 
   <div class="mb-3">
     <label for="password" class="form-label">Password</label>
-    <input type="password" class="form-control" id="password" name="password" ngModel #password="ngModel" required
-      minlength="4">
+    <input type="password" class="form-control" id="password" name="password" [ngModel]="currentUserData?.password"
+      #password="ngModel" required minlength="4">
     <div class="alert alert-danger mt-2" role="alert" *ngIf="(!password.valid && password.touched)">
       <div *ngIf="password.errors?.['required']">Password is required.</div>
       <div *ngIf="password.errors?.['minlength']">Password must contain at least 4 characters.</div>
@@ -47,8 +48,8 @@
 
   <div class="mb-3">
     <label for="repeatPassword" class="form-label">Repeat Password</label>
-    <input type="password" class="form-control" id="repeatPassword" name="repeatPassword" ngModel
-      #repeatPassword="ngModel" required>
+    <input type="password" class="form-control" id="repeatPassword" name="repeatPassword"
+      [ngModel]="currentUserData?.repeatPassword" #repeatPassword="ngModel" required>
 
     <div class="alert alert-danger mt-2 mb-2" role="alert"
       *ngIf="repeatPassword.errors?.['required'] && repeatPassword.touched">Repeat Password is
@@ -61,5 +62,7 @@
     <button type="submit" class="btn btn-primary"
       [disabled]="!form.valid || (password.value !== repeatPassword.value)">Save changes</button>
   </div>
-  <p class="text-center">Delete your account? <a href="">Delete</a></p>
+  <p class="text-center"><a role="button" class="link-danger">Delete</a> your account?</p>
 </form>
+
+<app-confirm-modal></app-confirm-modal>

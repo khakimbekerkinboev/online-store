@@ -1,3 +1,4 @@
+import { SharedModule } from './../shared/shared.module';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -8,7 +9,7 @@ import { EditProfileComponent } from './components/edit-profile/edit-profile.com
 
 @NgModule({
   declarations: [SignUpComponent, LogInComponent, EditProfileComponent],
-  imports: [CommonModule, RouterModule, FormsModule],
+  imports: [CommonModule, RouterModule, FormsModule, SharedModule],
   exports: [SignUpComponent, LogInComponent],
 })
 export class AuthModule {}
