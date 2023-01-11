@@ -1,3 +1,4 @@
+import { EditProfileComponent } from './auth/components/edit-profile/edit-profile.component';
 import { NotFoundComponent } from './pages/not-found/components/not-found/not-found.component';
 import { FinishOrderComponent } from './pages/cart/components/finish-order/finish-order/finish-order.component';
 import { ProductDetailsComponent } from './pages/product/components/product-details/product-details.component';
@@ -6,8 +7,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomePageComponent } from './pages/home/components/home-page/home-page.component';
 import { ConfirmOrderComponent } from './pages/cart/components/confirm-order/confirm-order.component';
 import { SignUpComponent } from './auth/components/sign-up/sign-up.component';
-import { LogInComponent } from './auth/components/log-in/log-in/log-in.component';
+import { LogInComponent } from './auth/components/log-in/log-in.component';
 import { NotLoggedIn } from './auth/services/not-logged-in';
+import { LoggedIn } from './auth/services/logged-in';
 
 const routes: Routes = [
   {
@@ -30,6 +32,11 @@ const routes: Routes = [
     path: 'sign-up',
     component: SignUpComponent,
     canActivate: [NotLoggedIn],
+  },
+  {
+    path: 'edit-profile',
+    component: EditProfileComponent,
+    canActivate: [LoggedIn],
   },
   {
     path: 'log-in',

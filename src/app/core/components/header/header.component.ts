@@ -1,3 +1,4 @@
+import { UserInfoService } from '../../../auth/services/user-info.service';
 import { Router } from '@angular/router';
 import { Product } from './../../../pages/home/components/home-page/home-page.component';
 import { Component, OnInit } from '@angular/core';
@@ -24,9 +25,10 @@ export class HeaderComponent implements OnInit {
   constructor(
     private showProductsService: ShowProductsService,
     private cartService: CartService,
-    public authService: AuthService,
+    private authService: AuthService,
+    private userInfoService: UserInfoService,
     private likesService: LikesService,
-    private route: Router
+    private router: Router
   ) {}
 
   searchWhileTyping(value: string) {
@@ -52,7 +54,7 @@ export class HeaderComponent implements OnInit {
   }
 
   viewProduct(product: Product) {
-    this.route.navigate(['/products', product.id]);
+    this.router.navigate(['/products', product.id]);
   }
 
   toggleCartContainer() {
@@ -73,6 +75,7 @@ export class HeaderComponent implements OnInit {
 
   logOut() {
     this.authService.logUserOut();
+    this.router.navigate(['/']);
   }
 
   ngOnInit() {
@@ -84,12 +87,12 @@ export class HeaderComponent implements OnInit {
       this.numOfLikedProducts = num;
     });
 
-    this.authService.loggedIn.subscribe((status) => {
+    this.userInfoService.loggedIn.subscribe((status) => {
       this.loggedIn = status;
     });
 
-    this.authService.currentUserData.subscribe((res: any) => {
-      this.currentUser = `${res.firstName} ${res.lastName[0]}...`;
+    this.userInfoService.currentUserData.subscribe((res: any) => {
+      this.currentUser = `${res?.firstName} ${res?.lastName[0]}...`;
     });
   }
 }

@@ -1,23 +1,19 @@
-import { AuthService } from 'src/app/auth/services/auth.service';
+import { UserInfoService } from './user-info.service';
 import { Injectable } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  CanActivate,
-  Router,
-  RouterStateSnapshot,
-  UrlTree,
-} from '@angular/router';
-import { Observable } from 'rxjs';
+import { CanActivate, Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class NotLoggedIn implements CanActivate {
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private userInfoService: UserInfoService,
+    private router: Router
+  ) {}
 
   canActivate() {
     let isLoggedIn = false;
-    this.authService.loggedIn.subscribe((status) => {
+    this.userInfoService.loggedIn.subscribe((status) => {
       isLoggedIn = status;
     });
 

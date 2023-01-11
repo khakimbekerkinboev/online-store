@@ -1,3 +1,5 @@
+import { UserInfoService } from './../../../auth/services/user-info.service';
+import { CurrentUserData } from './../../../auth/services/user-info.service';
 import { BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Product } from '../../home/components/home-page/home-page.component';
@@ -12,57 +14,84 @@ export class LikesService {
   numOflikedProductsSubject = new BehaviorSubject<number>(0);
   numOflikedProducts = this.numOflikedProductsSubject.asObservable();
 
-  constructor() {
+  constructor(private userInfoService: UserInfoService) {
     if (JSON.parse(localStorage.getItem('likedProducts') as string) !== null) {
       const existingLikedProducts = JSON.parse(
         localStorage.getItem('likedProducts') as string
       );
 
       this.updateLikedProducts(existingLikedProducts);
-      this.updateNumOfLikedProducts(existingLikedProducts.length);
     }
   }
 
   addProductToLikedProducts(product: Product) {
+    let likedProducts: Product[] = [];
     const likedProductsSubscription = this.likedProductsSubject.subscribe(
-      (likedProducts) => {
-        if (!likedProducts.includes(product)) {
-          likedProducts.push(product);
-          this.updateNumOfLikedProducts(likedProducts.length);
-          localStorage.setItem('likedProducts', JSON.stringify(likedProducts));
-        }
+      (products) => {
+        likedProducts = products;
       }
     );
+
+    if (!likedProducts.includes(product)) {
+      likedProducts.push(product);
+      this.updateLikedProducts(likedProducts);
+    }
 
     likedProductsSubscription.unsubscribe();
   }
 
   removeProductFromLikedProducts(product: Product) {
+    let likedProducts: Product[] = [];
     const likedProductsSubscription = this.likedProductsSubject.subscribe(
-      (likedProducts) => {
-        if (likedProducts.includes(product)) {
-          const index = likedProducts.indexOf(product);
-          likedProducts.splice(index, 1);
-          this.updateNumOfLikedProducts(likedProducts.length);
-          localStorage.setItem('likedProducts', JSON.stringify(likedProducts));
-        }
+      (products) => {
+        likedProducts = products;
       }
     );
+
+    if (likedProducts.includes(product)) {
+      const index = likedProducts.indexOf(product);
+      likedProducts.splice(index, 1);
+      this.updateLikedProducts(likedProducts);
+    }
 
     likedProductsSubscription.unsubscribe();
   }
 
   emptyLikedProducts() {
-    this.likedProductsSubject.next([]);
-    this.updateNumOfLikedProducts(0);
-    localStorage.setItem('likedProducts', JSON.stringify([]));
+    this.updateLikedProducts([]);
   }
 
-  updateLikedProducts(likedProducts: Product[]) {
-    this.likedProductsSubject.next(likedProducts);
+  updateLikedProducts(newLikedProducts: Product[]) {
+    this.likedProductsSubject.next(newLikedProducts);
+    this.numOflikedProductsSubject.next(newLikedProducts.length);
+    localStorage.setItem('likedProducts', JSON.stringify(newLikedProducts));
+    this.updateUsersLikedProducts(newLikedProducts);
   }
 
-  updateNumOfLikedProducts(newValue: number) {
-    this.numOflikedProductsSubject.next(newValue);
+  updateUsersLikedProducts(newLikedProducts: Product[]) {
+    const isLoggedIn = JSON.parse(localStorage.getItem('loggedIn') as string);
+
+    if (isLoggedIn) {
+      const currentUserData: CurrentUserData = JSON.parse(
+        localStorage.getItem('currentUserData') as string
+      );
+      const users: CurrentUserData[] = JSON.parse(
+        localStorage.getItem('users') as string
+      );
+
+      users.forEach((user) => {
+        if (
+          user.email === currentUserData.email &&
+          user.password === currentUserData.password
+        ) {
+          user.likedProducts = newLikedProducts;
+          localStorage.setItem('users', JSON.stringify(users));
+          return;
+        }
+      });
+
+      currentUserData.likedProducts = newLikedProducts;
+      this.userInfoService.updateCurrentUserData(currentUserData);
+    }
   }
 }

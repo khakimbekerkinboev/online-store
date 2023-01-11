@@ -1,3 +1,7 @@
+import {
+  CurrentUserData,
+  UserInfoService,
+} from '../../../auth/services/user-info.service';
 import { BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Product } from '../../home/components/home-page/home-page.component';
@@ -19,85 +23,101 @@ export class CartService {
   private totalAmountSubject = new BehaviorSubject<number>(0);
   totalAmount = this.totalAmountSubject.asObservable();
 
-  constructor() {
+  constructor(private userInfoService: UserInfoService) {
     if (JSON.parse(localStorage.getItem('cartProducts') as string) !== null) {
       const existingCartProducts = JSON.parse(
         localStorage.getItem('cartProducts') as string
       );
 
       this.updateCartProducts(existingCartProducts);
-      this.updateNumOfOrdersInCart(existingCartProducts.length);
-      this.updateTotalAmount(existingCartProducts);
     }
   }
 
   addProductToCart(product: Product, quantity: number) {
-    const cartProductsSubscription = this.cartProductsSubject.subscribe(
-      (cartProducts) => {
-        const ids = cartProducts.map((cartProduct) => cartProduct.id);
+    let cartProducts: CartProduct[] = [];
+    const cartProductsSubscription = this.cartProducts.subscribe((products) => {
+      cartProducts = products;
+    });
 
-        if (!ids.includes(product.id)) {
-          cartProducts.push({ ...product, quantity: quantity });
-        } else {
-          cartProducts.forEach((cartProduct) => {
-            if (cartProduct.id === product.id) {
-              cartProduct.quantity += quantity;
-            }
-          });
+    const ids = cartProducts.map((cartProduct) => cartProduct.id);
+
+    if (!ids.includes(product.id)) {
+      cartProducts.push({ ...product, quantity: quantity });
+    } else {
+      cartProducts.forEach((cartProduct) => {
+        if (cartProduct.id === product.id) {
+          cartProduct.quantity += quantity;
         }
+      });
+    }
 
-        this.updateNumOfOrdersInCart(cartProducts.length);
-        this.updateTotalAmount(cartProducts);
-        localStorage.setItem('cartProducts', JSON.stringify(cartProducts));
-      }
-    );
-
+    this.updateCartProducts(cartProducts);
     cartProductsSubscription.unsubscribe();
   }
 
   removeProductFromCart(cartProductToRemove: CartProduct) {
-    const cartProductsSubscription = this.cartProductsSubject.subscribe(
-      (cartProducts) => {
-        cartProducts.forEach((cartProduct) => {
-          if (cartProduct.id === cartProductToRemove.id) {
-            const index = cartProducts.indexOf(cartProduct);
-            cartProducts.splice(index, 1);
-          }
-        });
+    let cartProducts: CartProduct[] = [];
+    const cartProductsSubscription = this.cartProducts.subscribe((products) => {
+      cartProducts = products;
+    });
 
-        this.updateNumOfOrdersInCart(cartProducts.length);
-        this.updateTotalAmount(cartProducts);
-        localStorage.setItem('cartProducts', JSON.stringify(cartProducts));
+    cartProducts.forEach((cartProduct) => {
+      if (cartProduct.id === cartProductToRemove.id) {
+        const index = cartProducts.indexOf(cartProduct);
+        cartProducts.splice(index, 1);
       }
-    );
+    });
 
+    this.updateCartProducts(cartProducts);
     cartProductsSubscription.unsubscribe();
   }
 
   emptyCart() {
     this.updateCartProducts([]);
-    this.updateNumOfOrdersInCart(0);
-    this.updateTotalAmount([]);
-    localStorage.setItem('cartProducts', JSON.stringify([]));
   }
 
-  updateCartProducts(newValue: CartProduct[]) {
-    this.cartProductsSubject.next(newValue);
+  updateCartProducts(newCartProducts: CartProduct[]) {
+    this.cartProductsSubject.next(newCartProducts);
+    this.numOfOrdersInCartSubject.next(newCartProducts.length);
+    this.totalAmountSubject.next(this.calculateTotalAmount(newCartProducts));
+    localStorage.setItem('cartProducts', JSON.stringify(newCartProducts));
+    this.updateUsersCartProducts(newCartProducts);
   }
 
-  updateNumOfOrdersInCart(newValue: number) {
-    this.numOfOrdersInCartSubject.next(newValue);
-  }
-
-  updateTotalAmount(cartProducts: CartProduct[]) {
-    const totalAmount = cartProducts
+  calculateTotalAmount(cartProducts: CartProduct[]) {
+    return cartProducts
       .map((cartProduct) => {
         return cartProduct.price * cartProduct.quantity;
       })
       .reduce((a, b) => {
         return a + b;
       }, 0);
+  }
 
-    this.totalAmountSubject.next(totalAmount);
+  updateUsersCartProducts(newCartProducts: CartProduct[]) {
+    const isLoggedIn = JSON.parse(localStorage.getItem('loggedIn') as string);
+
+    if (isLoggedIn) {
+      const currentUserData: CurrentUserData = JSON.parse(
+        localStorage.getItem('currentUserData') as string
+      );
+      const users: CurrentUserData[] = JSON.parse(
+        localStorage.getItem('users') as string
+      );
+
+      users.forEach((user) => {
+        if (
+          user.email === currentUserData.email &&
+          user.password === currentUserData.password
+        ) {
+          user.cartProducts = newCartProducts;
+          localStorage.setItem('users', JSON.stringify(users));
+          return;
+        }
+      });
+
+      currentUserData.cartProducts = newCartProducts;
+      this.userInfoService.updateCurrentUserData(currentUserData);
+    }
   }
 }
