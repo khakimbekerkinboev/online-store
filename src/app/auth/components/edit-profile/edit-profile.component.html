@@ -62,7 +62,8 @@
     <button type="submit" class="btn btn-primary"
       [disabled]="!form.valid || (password.value !== repeatPassword.value)">Save changes</button>
   </div>
-  <p class="text-center"><a role="button" class="link-danger">Delete</a> your account?</p>
+  <p class="text-center"><a role="button" class="link-danger" (click)="modalShown = true">Delete</a> your account?</p>
 </form>
 
-<app-confirm-modal></app-confirm-modal>
+<app-confirm-modal *ngIf="modalShown" modalMessage='Do you really want to delete your account?'
+  actionButton="Delete account" (actionDone)="deleteAccount()" (modalClosed)="modalShown = false"></app-confirm-modal>

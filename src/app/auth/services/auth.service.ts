@@ -144,4 +144,31 @@ export class AuthService {
       }, 2000);
     });
   }
+
+  deleteAccount() {
+    return new Observable((observer) => {
+      setTimeout(() => {
+        const currentUserData: CurrentUserData = JSON.parse(
+          localStorage.getItem('currentUserData') as string
+        );
+
+        const users: CurrentUserData[] = JSON.parse(
+          localStorage.getItem('users') as string
+        );
+
+        users.forEach((user, index) => {
+          if (
+            user.email === currentUserData.email &&
+            user.password === currentUserData.password
+          ) {
+            users.splice(index, 1);
+            return;
+          }
+        });
+
+        localStorage.setItem('users', JSON.stringify(users));
+        observer.next({ deleted: true });
+      }, 2000);
+    });
+  }
 }

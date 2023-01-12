@@ -15,6 +15,7 @@ export class EditProfileComponent implements OnInit {
   @ViewChild('form') signUpForm: FormGroup | undefined;
   userNotLoggedIn = false;
   changesSaved = false;
+  modalShown = false;
   currentUserData: CurrentUserData | null = null;
 
   constructor(
@@ -36,6 +37,16 @@ export class EditProfileComponent implements OnInit {
         setTimeout(() => {
           this.userNotLoggedIn = false;
         }, 4000);
+      }
+    });
+  }
+
+  deleteAccount() {
+    this.authService.deleteAccount().subscribe((res: any) => {
+      if (res.deleted) {
+        this.modalShown = false;
+        this.authService.logUserOut();
+        this.router.navigate(['/']);
       }
     });
   }

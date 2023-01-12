@@ -1,7 +1,7 @@
 <form class="mx-auto my-5 p-4 border rounded" #form="ngForm" (ngSubmit)="onSubmit(form.value)">
   <h2 class="text-center fw-normal mb-3">Log in</h2>
   <div class="alert alert-danger" role="alert" *ngIf="userNotRegistered">
-    Please enter a valid email & password combination!
+    Invalid email or password!
   </div>
   <div class="mb-3">
     <label for="email" class="form-label">Email</label>
